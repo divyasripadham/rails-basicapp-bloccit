@@ -1,5 +1,7 @@
 include RandomData
 
+Post.find_or_create_by(title: 'Unique title1', body: 'Unique body1')
+
 50.times do
   Post.create!(
     title: RandomData.random_sentence,
