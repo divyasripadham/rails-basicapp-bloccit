@@ -1,6 +1,14 @@
 include RandomData
 
 50.times do
+  Question.create!(
+    title: RandomData.random_sentence,
+    body: RandomData.random_paragraph,
+    resolved: false
+  )
+end
+
+50.times do
   Post.create!(
     title: RandomData.random_sentence,
     body: RandomData.random_paragraph

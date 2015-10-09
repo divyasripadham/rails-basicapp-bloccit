@@ -43,7 +43,7 @@ class PostsController < ApplicationController
        render :edit
      end
    end
-     def destroy
+  def destroy
         @post = Post.find(params[:id])
         if @post.destroy
           flash[:notice] = "\"#{@post.title}\" was deleted successfully."
@@ -52,5 +52,5 @@ class PostsController < ApplicationController
           flash[:error] = "There was an error deleting the post."
           render :show
         end
-      end
+    end
 end
