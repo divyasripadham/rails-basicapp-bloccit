@@ -1,0 +1,12 @@
+<h2>Sign up</h2>
+<h4>Are you sure these values are correct?</h4>
+<h4>email: <%= @user.email %></h4>
+<h4>name: <%= @user.name %></h4>
+<div class="form-group">
+  <%= button_to "Yes", {:controller => "users", :action => "create", :params => params}, class: 'btn btn-success' %>
+</div>
+<div class="form-group">
+  <p>
+    <%= link_to "No", new_user_path, class: 'btn btn-primary' %>
+  </p>
+</div>
