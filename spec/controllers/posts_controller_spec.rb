@@ -4,7 +4,8 @@ include SessionsHelper
 
 RSpec.describe PostsController, type: :controller do
   let(:my_user) { User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld") }
-  let(:other_user) { User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld", role: :member) }
+  let(:member_user) { User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld", role: :member) }
+  let(:moderator_user) { User.create!(name: RandomData.random_name, email: RandomData.random_email, password: "helloworld", role: :moderator) }
   let (:my_topic) { Topic.create!(name:  RandomData.random_sentence, description: RandomData.random_paragraph) }
   let(:my_post) { my_topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: my_user) }
 
@@ -67,7 +68,7 @@ RSpec.describe PostsController, type: :controller do
 
   context "member user doing CRUD on a post they don't own" do
     before do
-      create_session(other_user)
+      create_session(member_user)
     end
 
     describe "GET show" do
@@ -148,7 +149,7 @@ RSpec.describe PostsController, type: :controller do
 
   context "moderator user doing CRUD on a post they don't own" do
     before do
-      create_session(other_user)
+      create_session(moderator_user)
     end
 
     describe "GET show" do
@@ -478,8 +479,8 @@ RSpec.describe PostsController, type: :controller do
 
   context "admin user doing CRUD on a post they don't own" do
     before do
-      other_user.admin!
-      create_session(other_user)
+      member_user.admin!
+      create_session(member_user)
     end
 
     describe "GET show" do
