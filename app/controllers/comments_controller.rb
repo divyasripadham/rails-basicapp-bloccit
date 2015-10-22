@@ -29,8 +29,17 @@ before_action :authorize_user, only: [:destroy]
    end
 
   private
+
   def comment_params
     params.require(:comment).permit(:body)
+  end
+
+  def authorize_user
+    comment = Comment.find(params[:id])
+    unless current_user == comment.user || current_user.admin?
+      flash[:error] = "You do not have permission to delete a comment."
+      redirect_to [comment.post.topic, comment.post]
+    end
   end
 
 end
