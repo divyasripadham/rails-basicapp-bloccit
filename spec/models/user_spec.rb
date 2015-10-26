@@ -100,7 +100,7 @@ RSpec.describe User, type: :model do
         end
 
         it "returns `nil` if the user has not favorited the post" do
-    
+
           expect(user.favorite_for(@post)).to be_nil
         end
 
