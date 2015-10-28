@@ -31,4 +31,24 @@ class User < ActiveRecord::Base
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
 
+  def does_not_have_posts?
+    if posts.count == 0
+      true
+    else
+      false
+    end
+  end
+
+  def does_not_have_comments?
+    if comments.count == 0
+      true
+    else
+      false
+    end
+  end
+
+  def does_not_have_favorites?
+    favorites.count == 0
+  end
+
 end

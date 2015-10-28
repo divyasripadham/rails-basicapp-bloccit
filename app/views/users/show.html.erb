@@ -21,9 +21,41 @@
    </div>
  </div>
 
- 
+
  <h2>Posts</h2>
+ <% if @user.does_not_have_posts? %>
+   <p>No posts</p>
+ <% end %>
  <%= render @user.posts %>
 
- <h2>Comments</h2>
+<h2>Comments</h2>
+ <% if @user.does_not_have_comments? %>
+   <p>No comments</p>
+ <% end %>
  <%= render @user.comments %>
+
+<h2>Favorite Posts</h2>
+<% if @user.does_not_have_favorites? %>
+  <p>No favorites</p>
+<% end %>
+
+<% @user.favorites.each do |favorite| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <%= link_to favorite.post.title, topic_post_path(favorite.post.topic, favorite.post) %>
+      </h4>
+      <% avatar_url = User.avatar_url(favorite.post.user, 128) %>
+      <% unless avatar_url.nil? %>
+        <div class="media-left">
+
+          <%= image_tag avatar_url, class: 'media-object' %>
+        </div>
+      <% end %>
+      <small>
+        submitted <%= time_ago_in_words(favorite.post.created_at) %> ago by <%= favorite.post.user.name %> <br>
+        <%= favorite.post.comments.count %> Comments <%= favorite.post.votes.count %> Votes
+      </small>
+    </div>
+  </div>
+<% end %>

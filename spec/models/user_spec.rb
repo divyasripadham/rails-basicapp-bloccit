@@ -2,7 +2,13 @@ require 'rails_helper'
 include RandomData
 
 RSpec.describe User, type: :model do
-  let(:user) { create(:user) }
+
+  let(:my_topic) { create(:topic) }
+   let(:user) { create(:user) }
+   let(:other_user) { create(:user) }
+   let(:my_post) { create(:post, topic: my_topic, user: other_user) }
+   let(:my_comment) { create(:comment, post: my_post, user: other_user) }
+   let(:my_favorite) { Favorite.create!(post: my_post, user: other_user) }
 
   it { should have_many(:posts) }
   it { should have_many(:comments) }
@@ -79,7 +85,7 @@ RSpec.describe User, type: :model do
     let(:user_with_invalid_name) { build(:user, name: "") }
     let(:user_with_invalid_email) { build(:user, email: "") }
     let(:user_with_invalid_email_format) { build(:user, email: "invalid_format") }
-    
+
      it "should be an invalid user due to blank name" do
        expect(user_with_invalid_name).to_not be_valid
      end
@@ -93,7 +99,7 @@ RSpec.describe User, type: :model do
      end
 
    end
-   describe "#favorite_for(post)" do
+     describe "#favorite_for(post)" do
         before do
           topic = Topic.create!(name: RandomData.random_sentence, description: RandomData.random_paragraph)
           @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
@@ -117,6 +123,24 @@ RSpec.describe User, type: :model do
         it "returns the proper Gravatar url for a known email entity" do
           expected_gravatar = "http://gravatar.com/avatar/bb6d1172212c180cfbdb7039129d7b03.png?s=48"
           expect(User.avatar_url(known_user, 48)).to eq(expected_gravatar)
+        end
+      end
+
+      describe "does_not_have_posts" do
+        it "returns true if user does not have any posts" do
+          expect(user.does_not_have_posts?).to be_truthy
+        end
+      end
+
+      describe "does_not_have_comments" do
+        it "returns true if user does not have any comments" do
+          expect(user.does_not_have_comments?).to be_truthy
+        end
+      end
+
+      describe "does_not_have_favorites" do
+        it "returns true if user does not have any favorites" do
+          expect(user.does_not_have_favorites?).to be_truthy
         end
       end
 end

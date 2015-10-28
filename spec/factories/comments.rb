@@ -1,11 +1,9 @@
 include RandomData
 
  FactoryGirl.define do
-   factory :post do
-     title RandomData.random_sentence
+   factory :comment do
      body RandomData.random_paragraph
-     topic
+     post
      user
-     rank 0.0
    end
  end
