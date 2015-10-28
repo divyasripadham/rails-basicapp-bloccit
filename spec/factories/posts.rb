@@ -1,5 +1,5 @@
 include RandomData
- 
+
  FactoryGirl.define do
    factory :post do
      title RandomData.random_sentence
