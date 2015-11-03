@@ -24,7 +24,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users, only: [:index, :show]
-      resources :topics, only: [:index, :show] 
+      resources :topics, only: [:index, :show]
+      resources :posts, only: [:index, :show]
+      resources :comments, only: [:index, :show]
+      get 'posts/:post_id/show' => 'posts#show_comments', as: :show_comments
+      get 'topics/:topic_id/show' => 'topics#show_posts', as: :show_posts
     end
   end
 
