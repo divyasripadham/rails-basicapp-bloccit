@@ -1,0 +1,3 @@
+$('#post_' +<%= @post.id %>).html(
+  '<%= div_for(@post) do %>\n<strong><%= @post.points %></strong>\n<% end %>'
+);
