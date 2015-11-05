@@ -30,7 +30,19 @@ class Api::V1::TopicsController < Api::V1::BaseController
     else
       render json: {error: "Topic is invalid", status: 400}, status: 400
     end
+  end
 
+  def create_post
+    @topic = Topic.find(params[:topic_id])
+    @post = @topic.posts.build(post_params)
+    @post.user = User.first
+
+    if @post.valid?
+      @post.save!
+      render json: @post.to_json, status: 201
+    else
+      render json: {error: "There was an error saving the post. Please try again.", status: 400}, status: 400
+    end
   end
 
   def destroy
@@ -46,5 +58,8 @@ class Api::V1::TopicsController < Api::V1::BaseController
   private
   def topic_params
     params.require(:topic).permit(:name, :description, :public)
+  end
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 end
