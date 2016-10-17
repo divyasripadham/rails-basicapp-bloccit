@@ -1,31 +1,19 @@
-== README
-## Bloccit: a Reddit replica to teach the fundamentals of web development and Rails.
+Post-It is a Rails application.
 
- Made with my mentor at [Bloc](http://bloc.io).
- 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| User Stories
+| -------------
+| A user should be able to sign in and out of Post-It.
+| All users should be able to view Posts, ordered by Topics.
+| If Signed In, a user should be able to Comment on, Favorite and Vote on Posts.
+| If Signed In, a user should be able to create a Post.
+| Users should only be able to delete and edit their own Posts.
+| An Admin user should be able to delete and edit content of another user.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+| General Notes
+| -------------
+| Used Session object to persist user information.
+| Used Ajax to delete and create comments, without reloading the page.
+| Built RESTful APIs for retrieving, creating and updating data.
+| [SendGrid](https://sendgrid.com/) is used for sending email notifications.
+| [Gravatar](https://en.gravatar.com/) allows users to personalize their profile.
+| [RSpec](http://rspec.info/) is the testing tool used.
